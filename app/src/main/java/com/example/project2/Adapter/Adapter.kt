@@ -3,41 +3,41 @@ package com.example.project2.Adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.project2.databinding.ItemLayoutBinding // Make sure to create this layout
-import com.example.project2.Model.Post
+import com.example.project2.databinding.ItemLayoutBinding // Ensure this layout is created for displaying the photo
+import com.example.project2.Model.Photo
 import com.squareup.picasso.Picasso
 
-class PostAdapter(private val posts: List<Post>, private val onClick: (Post) -> Unit) : RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
+class PhotoAdapter(private val photos: List<Photo>, private val onClick: (Photo) -> Unit) : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
         val binding = ItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding)
+        return PhotoViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        val post = posts[position]
-        holder.bind(post)
+    override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
+        val photo = photos[position]
+        holder.bind(photo)
     }
 
-    override fun getItemCount(): Int = posts.size
+    override fun getItemCount(): Int = photos.size
 
-    inner class PostViewHolder(private val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class PhotoViewHolder(private val binding: ItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(post: Post) {
-            // Set the title and body text
-            binding.titleText.text = post.title
-            binding.bodyText.text = post.body
-
-            // Use Picasso to load the image from the photoUrl into the ImageView
+        fun bind(photo: Photo) {
+            // Use Picasso to load the image from the download_url into the ImageView
             Picasso.get()
-                .load(post.photoUrl)  // Load the image URL from the Post object
+                .load(photo.download_url)  // Load the image URL from the Photo object
                 .placeholder(android.R.drawable.ic_menu_gallery)  // Placeholder image while loading
                 .error(android.R.drawable.ic_menu_report_image)  // Error image if the URL is invalid or loading fails
                 .into(binding.photoImage)
 
+            // Set an optional author name or any other field if needed
+            // Assuming you have a TextView for the author in your layout
+            // binding.authorText.text = photo.author  // Uncomment if you want to show the author's name
+
             // Set onClickListener to perform action when an item is clicked
             binding.root.setOnClickListener {
-                onClick(post)
+                onClick(photo)
             }
         }
     }
