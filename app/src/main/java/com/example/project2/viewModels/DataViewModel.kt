@@ -1,6 +1,5 @@
-package com.example.project2
+package com.example.project2.viewModels
 
-import android.provider.ContactsContract
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,8 +9,7 @@ import com.example.project2.Model.Post
 import com.example.project2.api.Api
 import kotlinx.coroutines.launch
 
-class PostViewModel(private val serviceApi: Api) : ViewModel() {
-
+class DataViewModel(private val serviceApi: Api) : ViewModel() {
     private val _posts = MutableLiveData<List<Post>>()
     val posts: LiveData<List<Post>> get() = _posts
 
@@ -29,5 +27,5 @@ class PostViewModel(private val serviceApi: Api) : ViewModel() {
             }
         }
     }
-}
 
+}

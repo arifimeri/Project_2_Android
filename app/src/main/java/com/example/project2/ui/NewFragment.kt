@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.project2.DataViewModel
+import com.example.project2.viewModels.DataViewModel
 
 class NewFragment : Fragment() {
 
