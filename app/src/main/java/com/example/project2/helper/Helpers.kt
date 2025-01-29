@@ -10,7 +10,7 @@ object Helpers {
     fun provideRetrofit(): Api {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://jsonplaceholder.typicode.com/")
+            .baseUrl("https://picsum.photos/")
             .build()
             .create(Api::class.java)
     }

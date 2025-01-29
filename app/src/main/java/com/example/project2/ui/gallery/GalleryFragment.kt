@@ -1,42 +1,36 @@
-package com.example.project2.ui.gallery
+    package com.example.project2.ui.gallery
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.example.project2.databinding.FragmentGalleryBinding
+    import android.os.Bundle
+    import android.view.LayoutInflater
+    import android.view.View
+    import android.view.ViewGroup
+    import android.widget.TextView
+    import androidx.fragment.app.Fragment
+    import androidx.lifecycle.Observer
+    import androidx.lifecycle.ViewModelProvider
+    import com.example.project2.databinding.FragmentGalleryBinding
 
-class GalleryFragment : Fragment() {
+    class GalleryFragment : Fragment() {
 
-    private var _binding: FragmentGalleryBinding? = null
+        private lateinit var galleryViewModel: GalleryViewModel
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+        override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View? {
+            val binding = FragmentGalleryBinding.inflate(inflater, container, false)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val galleryViewModel =
-            ViewModelProvider(this).get(GalleryViewModel::class.java)
+            // Initialize the ViewModel
+            galleryViewModel = ViewModelProvider(this).get(GalleryViewModel::class.java)
 
-        _binding = FragmentGalleryBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+            // Observe the photos LiveData
+            galleryViewModel.photos.observe(viewLifecycleOwner, Observer { photos ->
+                // Update your UI with the list of photos, e.g., display in RecyclerView
+            })
 
-        val textView: TextView = binding.textGallery
-        galleryViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+            // Add a photo (this could be triggered by a button or event)
+            galleryViewModel.addPhoto("https://example.com/photo1.jpg")
+
+            return binding.root
         }
-        return root
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-}
